@@ -1,6 +1,8 @@
 #ifndef REAL_H
 #define REAL_H
 
+#include <limits>
+
 namespace fuzzy
 {
     using real = double;

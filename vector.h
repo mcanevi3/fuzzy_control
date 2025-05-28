@@ -20,9 +20,17 @@ namespace fuzzy
         vector(std::initializer_list<real> list);
         vector(const vector& other);
         vector& operator=(const vector& other);
+        vector(std::vector<real>::iterator begin, std::vector<real>::iterator end);
+
         ~vector();
 
         int length() const { return _size; }
+
+        real* begin() { return _arr; }
+        real* end()   { return _arr + _size; }
+
+        const real* begin() const { return _arr; }
+        const real* end()   const { return _arr + _size; }
 
         // Indexing operator
         real& operator[](int index);
@@ -37,7 +45,11 @@ namespace fuzzy
         real dot(const vector& rhs) const;
 
         void print() const;
-    };
-}
 
+
+    };
+
+    std::ostream& operator<<(std::ostream& os, const fuzzy::vector& vec);
+
+}
 #endif
