@@ -16,4 +16,3 @@ yzshaped=membership(t,"type","zshaped","start",3,"stop",7);
 
 figure(1);clf;hold on;grid on;
 plot(t,yzshaped,'k','LineWidth',2);
-plot([1,2,7,8],[0,1,1,0],'bx','LineWidth',2);
