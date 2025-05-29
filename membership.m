@@ -22,8 +22,8 @@ function vec=membership(xvector,varargin)
             vec=profile_generator(xvector,xvec,yvec);
         else 
             vec=[]
-            disp('Usage: membership("start",val,"peak",val,"stop",val)')
-            disp('Usage: membership("start",val,"width",val)')
+            disp('Usage: membership(...,"start",val,"peak",val,"stop",val)')
+            disp('Usage: membership(...,"start",val,"width",val)')
         end
     case 'trapezoid'
         if isfield(args, 'start_low') && isfield(args, 'start_high') && isfield(args, 'stop_high') && isfield(args, 'stop_low')
@@ -45,8 +45,96 @@ function vec=membership(xvector,varargin)
             vec=profile_generator(xvector,xvec,yvec);
         else 
             vec=[]
-            disp('Usage: membership("start_low",val,"start_high",val,"stop_high",val,"stop_low",val)')
-            disp('Usage: membership("start",val,"width_low",val,"width_high",val)')
+            disp('Usage: membership(...,"start_low",val,"start_high",val,"stop_high",val,"stop_low",val)')
+            disp('Usage: membership(...,"start",val,"width_low",val,"width_high",val)')
+        end
+    case 'gauss'
+        if isfield(args, 'mean') && isfield(args, 'deviation') 
+            assert(isa(args.mean, 'double'),"mean needs to be double")
+            assert(isa(args.deviation, 'double'),"deviation needs to be double")
+            c=args.mean;
+            sigma=args.deviation;
+            vec = exp( - ((xvector - c).^2) / (2 * sigma^2) );
+        else 
+            vec=[]
+            disp('Usage: membership(...,"mean",val,"deviation",val)')
+        end
+    case 'bell'
+        if isfield(args, 'center') && isfield(args, 'width') && isfield(args, 'slope') 
+            assert(isa(args.center, 'double'),"center needs to be double")
+            assert(isa(args.width, 'double'),"width needs to be double")
+            assert(isa(args.slope, 'double'),"slope needs to be double")
+            
+            a=args.width;
+            b=args.slope;
+            c=args.center;
+            vec = 1 ./ (1 + abs((xvector - c) / a).^(2 * b));
+
+        else 
+            vec=[]
+            disp('Usage: membership(...,"center",val,"width",val,"slope",val)')
+        end
+    case 'sigmoid'
+        if isfield(args, 'slope') && isfield(args, 'center') 
+            assert(isa(args.slope, 'double'),"slope needs to be double")
+            assert(isa(args.center, 'double'),"center needs to be double")
+            
+            a=args.slope;
+            c=args.center;
+            vec = 1 ./ (1 + exp(-a * (xvector - c)));
+        else 
+            vec=[]
+            disp('Usage: membership(...,"center",val,"slope",val)')
+        end
+    case 'sshaped'
+        if isfield(args, 'start') && isfield(args, 'stop') 
+            assert(isa(args.start, 'double'),"start needs to be double")
+            assert(isa(args.stop, 'double'),"stop needs to be double")
+            
+            start=args.start;
+            stop=args.stop;
+            
+            vec = zeros(size(xvector));
+            for i = 1:length(xvector)
+                if xvector(i) <= start
+                    vec(i) = 0;
+                elseif xvector(i) <= (start + stop)/2
+                    vec(i) = 2 * ((xvector(i) - start)/(stop - start))^2;
+                elseif xvector(i) <= stop
+                    vec(i) = 1 - 2 * ((xvector(i) - stop)/(stop - start))^2;
+                else
+                    vec(i) = 1;
+                end
+            end
+            
+        else 
+            vec=[]
+            disp('Usage: membership(...,"start",val,"stop",val)')
+        end
+    case 'zshaped'
+        if isfield(args, 'start') && isfield(args, 'stop') 
+            assert(isa(args.start, 'double'),"start needs to be double")
+            assert(isa(args.stop, 'double'),"stop needs to be double")
+            
+            start=args.start;
+            stop=args.stop;
+            
+            vec = zeros(size(xvector));
+            for i = 1:length(xvector)
+                if xvector(i) <= start
+                    vec(i) = 1;
+                elseif xvector(i) <= (start + stop)/2
+                    vec(i) = 1 - 2 * ((xvector(i) - start)/(stop - start))^2;
+                elseif xvector(i) <= stop
+                    vec(i) = 2 * ((xvector(i) - stop)/(stop - start))^2;
+                else
+                    vec(i) = 0;
+                end
+            end
+            
+        else 
+            vec=[]
+            disp('Usage: membership(...,"start",val,"stop",val)')
         end
     otherwise
         vec=[]
