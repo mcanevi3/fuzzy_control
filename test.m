@@ -1,45 +1,11 @@
 clear; clc;
 
-xvec = [1, 2, 5];
-yvec = [0, 1, 0];
+t=0:0.1:8;
+% ytriangle=membership(t,"type","triangle","start",1,"peak",3,"stop",3.5);
+% ytriangle=membership(t,"type","triangle","start",1,"width",1,"height",1);
 
-tvec = 0:0.5:6;
-vec = zeros(size(tvec));
-
-for j = 1:length(tvec)
-    tval = tvec(j);
-    yval = 0;
-
-    % Check if tval matches exactly any xvec point
-    matched = false;
-    for i = 1:length(xvec)
-        if tval == xvec(i)
-            yval = yvec(i);
-            matched = true;
-            break;
-        end
-    end
-
-    if matched
-        vec(j) = yval;
-        continue;
-    end
-
-    % Check if tval lies between two xvec points
-    for i = 1:length(xvec)-1
-        x1 = xvec(i);   x2 = xvec(i+1);
-        y1 = yvec(i);   y2 = yvec(i+1);
-
-        if tval > x1 && tval < x2
-            % Manual linear interpolation formula
-            yval = y1 + (y2 - y1) * (tval - x1) / (x2 - x1);
-            break;
-        end
-    end
-
-    vec(j) = yval;
-end
-
+% ytrapezoid=membership(t,"type","trapezoid","start_low",1,"start_high",2,"stop_high",5,"stop_low",6);
+ytrapezoid=membership(t,"type","trapezoid","start",1,"width_low",1,"width_high",5);
 figure(1);clf;hold on;grid on;
-plot(tvec,vec,'k','LineWidth',2)
-plot(xvec,yvec,'bx','LineWidth',2)
+plot(t,ytrapezoid,'k','LineWidth',2);
+plot([1,2,7,8],[0,1,1,0],'bx','LineWidth',2);
