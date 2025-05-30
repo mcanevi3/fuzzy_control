@@ -205,3 +205,53 @@ Advantage: Symmetric, general-purpose behavior; good if derivative effect domina
 
 Disadvantage: No integral action → steady-state error possible.
 
+\section{Piecewise Linear PI/PD controller with Fuzzy PID}
+\begin{table}[h!]
+\centering
+\caption{IC Region Definitions in $(e(n), \Delta e(n))$ Space}
+\begin{tabular}{c|cc|c}
+\toprule
+Region & $e(n)$ & $\mu_P(e)$ &$\Delta e(n)$ \\
+\midrule
+IC1 & $0<e(n)<L$ & $\frac{e+L}{2L}$ & $-L\leq\Delta e(n)\leq L$\\
+IC2 & $-L\leq e(n)\leq L$ & $\frac{e+L}{2L}$ & $0<\Delta e(n)<L$\\
+IC3 & $-L<e(n)<0$ & $\frac{e+L}{2L}$ & $-L\leq\Delta e(n)\leq L$\\
+IC4 & $-L\leq e(n)\leq L$ & $\frac{e+L}{2L}$ & $-L<\Delta e(n)<0$\\
+IC5 & $e(n)>L$ & $1$ & $-L<\Delta e(n)<0$\\
+IC6 & $e(n)>L$ & $1$ & $\Delta e(n)>L$\\
+IC7 & $-L\leq e(n)\leq L$ & $\frac{e+L}{2L}$ & $\Delta e(n)>L$\\
+IC8 & $e<-L$ & $0$ & $\Delta e(n)>L$\\
+IC9 & $e<-L$ & $0$  & $-L<\Delta e(n)<0$\\
+IC10 & $e<-L$ & $0$  & $\Delta e(n)<-L$\\
+IC11 & $-L\leq e(n)\leq L$ & $\frac{e+L}{2L}$  & $\Delta e(n)<-L$\\
+IC12 & $e(n)>L$ & $1$ & $\Delta e(n)<-L$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% \begin{equation}
+%     \mu_P(e)\begin{cases}
+%         0,& e<-L\\
+%         \frac{e+L}{2L},& -L\leq e\leq L\\
+%         1,& e>L\\
+%     \end{cases}\quad
+%     \mu_N(e)\begin{cases}
+%         1,& e<-L\\
+%         \frac{-e+L}{2L},& -L\leq e\leq L\\
+%         0,& e>L\\
+%     \end{cases}
+% \end{equation}
+% and 
+% \begin{equation}
+%     \mu_P(\Delta e)\begin{cases}
+%         0,& \Delta e<-L\\
+%         \frac{\Delta e+L}{2L},& -L\leq \Delta e\leq L\\
+%         1,& \Delta e>L\\
+%     \end{cases}\quad
+%     \mu_N(\Delta e)\begin{cases}
+%         1,& \Delta e<-L\\
+%         \frac{-\Delta e+L}{2L},& -L\leq \Delta e\leq L\\
+%         0,& \Delta e>L\\
+%     \end{cases}
+% \end{equation}
+
