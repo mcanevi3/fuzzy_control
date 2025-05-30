@@ -149,6 +149,59 @@ therefore,
 \end{equation}
 Since the control signal is a linear combination of $\Delta e$ and $e$ it is an incremental PI controller.
 
+\section{Tables}
+\subsection{Aggressive Tracking}
+\begin{table}[h]
+\centering
+\caption{Rule Table A: Aggressive Tracking}
+\begin{tabular}{llll}
+\toprule
+{$e\backslash \Delta e$} & N & Z & P \\
+\midrule
+N & N & N & N \\
+Z & N & P & P \\
+P & P & P & P \\
+\bottomrule
+\end{tabular}
+\end{table}
+Advantage: Fast response and quick convergence to reference.
+
+Disadvantage: May cause overshoot or oscillation in sensitive systems.
 
 
+\subsection{Conservative Tracking}
+\begin{table}[h]
+\centering
+\caption{Rule Table B: Conservative Tracking}
+\begin{tabular}{llll}
+\toprule
+{$e\backslash \Delta e$} & N & Z & P \\
+\midrule
+N & N & Z & Z \\
+Z & Z & Z & Z \\
+P & Z & Z & P \\
+\bottomrule
+\end{tabular}
+\end{table}
+Advantage: Very stable with low overshoot.
+
+Disadvantage: Slow response; possible steady-state error if not tuned well.
+
+\subsection{PD-like(Symmetric)}
+\begin{table}[h]
+\centering
+\caption{Rule Table C: PD-like}
+\begin{tabular}{llll}
+\toprule
+{$e\backslash \Delta e$} & N & Z & P \\
+\midrule
+N & N & Z & P \\
+Z & N & Z & P \\
+P & N & Z & P \\
+\bottomrule
+\end{tabular}
+\end{table}
+Advantage: Symmetric, general-purpose behavior; good if derivative effect dominates.
+
+Disadvantage: No integral action → steady-state error possible.
 
