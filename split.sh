@@ -1,0 +1,1 @@
+pdftk main.pdf cat 74-77 output temp.pdf
