@@ -230,17 +230,140 @@ IC12 & $e(n)>L$ & $1$ & $0$ & $\Delta e(n)<-L$ & $0$ & $1$\\
 \end{tabular}
 \end{table}
 
-\begin{table}[h!]
-\centering
-\caption{IC Region Definitions in $(e(n), \Delta e(n))$ Space}
-\begin{tabular}{ccccc}
-\toprule
-Region & r1:$PP$ & r2:$PN$ & r3:$NP$ &r4:$NN$\\
-\midrule
-IC1 & $\frac{e+L}{2L}\frac{\Delta e+L}{2L}$ & $\frac{e+L}{2L}\frac{-\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{-\Delta e+L}{2L}$\\
-IC2 & $\frac{e+L}{2L}\frac{\Delta e+L}{2L}$ & $\frac{e+L}{2L}\frac{-\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{-\Delta e+L}{2L}$\\
-IC3 & $\frac{e+L}{2L}\frac{\Delta e+L}{2L}$ & $\frac{e+L}{2L}\frac{-\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{-\Delta e+L}{2L}$\\
-IC4 & $\frac{e+L}{2L}\frac{\Delta e+L}{2L}$ & $\frac{e+L}{2L}\frac{-\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{-\Delta e+L}{2L}$\\
-\bottomrule
-\end{tabular}
-\end{table}
+IC1 
+\begin{equation}
+\begin{split}
+    r1&=\min{\left(\frac{e+L}{2L}_{0<e(n)<L},\frac{\Delta e+L}{2L}_{-L\leq\Delta e(n)\leq L}\right)}\\
+    r1&=\frac{\Delta e+L}{2L}_{-L\leq\Delta e(n)\leq L}\\
+    r4&=\min{\left(\frac{-e+L}{2L}_{0<e(n)<L},\frac{-\Delta e+L}{2L}_{-L\leq\Delta e(n)\leq L}\right)}\\
+    r4&=\frac{-e+L}{2L}_{0<e(n)<L}
+\end{split}
+\end{equation}
+
+IC2
+\begin{equation}
+\begin{split}
+    r1&=\min{\left(\frac{e+L}{2L}_{-L\leq e(n)\leq L},\frac{\Delta e+L}{2L}_{0<\Delta e(n)<L}\right)}\\
+    r1&=\frac{e+L}{2L}_{-L\leq e(n)\leq L}\\
+    r4&=\min{\left(\frac{-e+L}{2L}_{-L\leq e(n)\leq L},\frac{-\Delta e+L}{2L}_{0<\Delta e(n)<L}\right)}\\
+    r4&=\frac{-\Delta e+L}{2L}_{0<\Delta e(n)<L}
+\end{split}
+\end{equation}
+
+
+IC3
+\begin{equation}
+\begin{split}
+    r1&=\min{\left(\frac{e+L}{2L}_{-L<e(n)<0},\frac{\Delta e+L}{2L}_{-L\leq e(n)\leq L}\right)}\\
+    r1&=\frac{e+L}{2L}_{-L<e(n)<0}\\
+    r4&=\min{\left(\frac{-e+L}{2L}_{-L\leq e(n)<0},\frac{-\Delta e+L}{2L}_{-L\leq e(n)\leq L}\right)}\\
+    r4&=\frac{-\Delta e+L}{2L}_{-L\leq e(n)\leq L}
+\end{split}
+\end{equation}
+
+IC4
+\begin{equation}
+\begin{split}
+    r1&=\min{\left(\frac{e+L}{2L}_{-L\leq e(n)\leq L},\frac{\Delta e+L}{2L}_{-L<\Delta e(n)<0}\right)}\\
+    r1&=\frac{\Delta e+L}{2L}_{-L<\Delta e(n)<0}\\
+    r4&=\min{\left(\frac{-e+L}{2L}_{-L\leq e(n)\leq L},\frac{-\Delta e+L}{2L}_{-L<\Delta e(n)<0}\right)}\\
+    r4&=\frac{-e+L}{2L}_{-L\leq e(n)\leq L}
+\end{split}
+\end{equation}
+
+IC5
+\begin{equation}
+\begin{split}
+    r1&=\min{\left(1_{e(n)>L},\frac{\Delta e+L}{2L}_{-L<\Delta e(n)<0}\right)}\\
+    r1&=\frac{\Delta e+L}{2L}_{-L<\Delta e(n)<0}\\
+    r4&=\min{\left(0_{e(n)>L},\frac{-\Delta e+L}{2L}_{-L<\Delta e(n)<0}\right)}\\
+    r4&=0
+\end{split}
+\end{equation}
+
+IC6
+\begin{equation}
+\begin{split}
+    r1&=\min{\left(1_{e(n)>L},1_{e(n)>L}\right)}\\
+    r1&=1\\
+    r4&=\min{\left(0_{e(n)>L},0_{e(n)>L}\right)}\\
+    r4&=0
+\end{split}
+\end{equation}
+
+IC7
+\begin{equation}
+\begin{split}
+    r1&=\min{\left(\frac{e+L}{2L}_{-L\leq e(n)\leq L},1_{e(n)>L}\right)}\\
+    r1&=\frac{e+L}{2L}_{-L\leq e(n)\leq L}\\
+    r4&=\min{\left(\frac{-e+L}{2L}_{-L\leq e(n)\leq L},0_{e(n)>L}\right)}\\
+    r4&=0
+\end{split}
+\end{equation}
+
+IC8
+\begin{equation}
+\begin{split}
+    r1&=\min{\left(0_{e<-L},1_{e(n)>L}\right)}\\
+    r1&=0\\
+    r4&=\min{\left(1_{e<-L},0_{e(n)>L}\right)}\\
+    r4&=0
+\end{split}
+\end{equation}
+
+IC9
+\begin{equation}
+\begin{split}
+    r1&=\min{\left(0_{e<-L},\frac{\Delta e+L}{2L}_{-L<\Delta e(n)<0}\right)}\\
+    r1&=0\\
+    r4&=\min{\left(1_{e<-L},\frac{-\Delta e+L}{2L}_{-L<\Delta e(n)<0}\right)}\\
+    r4&=\frac{-\Delta e+L}{2L}_{-L<\Delta e(n)<0}
+\end{split}
+\end{equation}
+
+IC10
+\begin{equation}
+\begin{split}
+    r1&=\min{\left(0_{e<-L},0_{\Delta e(n)<-L}\right)}\\
+    r1&=0\\
+    r4&=\min{\left(1_{e<-L},1_{\Delta e(n)<-L}\right)}\\
+    r4&=1
+\end{split}
+\end{equation}
+
+IC11
+\begin{equation}
+\begin{split}
+    r1&=\min{\left(\frac{e+L}{2L}_{-L\leq e(n)\leq L},0_{\Delta e(n)<-L}\right)}\\
+    r1&=0\\
+    r4&=\min{\left(\frac{-e+L}{2L}_{-L\leq e(n)\leq L},1_{\Delta e(n)<-L}\right)}\\
+    r4&=\frac{-e+L}{2L}_{-L\leq e(n)\leq L}
+\end{split}
+\end{equation}
+
+IC12
+\begin{equation}
+\begin{split}
+    r1&=\min{\left(1_{e(n)>L},0_{\Delta e(n)<-L}\right)}\\
+    r1&=0\\
+    r4&=\min{\left(0_{e(n)>L},1_{\Delta e(n)<-L}\right)}\\
+    r4&=0
+\end{split}
+\end{equation}
+
+
+
+% \begin{table}[h!]
+% \centering
+% \caption{IC Region Definitions in $(e(n), \Delta e(n))$ Space}
+% \begin{tabular}{ccccc}
+% \toprule
+% Region & r1:$PP$ & r2:$PN$ & r3:$NP$ &r4:$NN$\\
+% \midrule
+% IC1 & $\frac{e+L}{2L}\frac{\Delta e+L}{2L}$ & $\frac{e+L}{2L}\frac{-\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{-\Delta e+L}{2L}$\\
+% IC2 & $\frac{e+L}{2L}\frac{\Delta e+L}{2L}$ & $\frac{e+L}{2L}\frac{-\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{-\Delta e+L}{2L}$\\
+% IC3 & $\frac{e+L}{2L}\frac{\Delta e+L}{2L}$ & $\frac{e+L}{2L}\frac{-\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{-\Delta e+L}{2L}$\\
+% IC4 & $\frac{e+L}{2L}\frac{\Delta e+L}{2L}$ & $\frac{e+L}{2L}\frac{-\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{-\Delta e+L}{2L}$\\
+% \bottomrule
+% \end{tabular}
+% \end{table}
