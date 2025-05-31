@@ -236,7 +236,11 @@ IC1
     r1&=\min{\left(\frac{e+L}{2L}_{0<e(n)<L},\frac{\Delta e+L}{2L}_{-L\leq\Delta e(n)\leq L}\right)}\\
     r1&=\frac{\Delta e+L}{2L}_{-L\leq\Delta e(n)\leq L}\\
     r4&=\min{\left(\frac{-e+L}{2L}_{0<e(n)<L},\frac{-\Delta e+L}{2L}_{-L\leq\Delta e(n)\leq L}\right)}\\
-    r4&=\frac{-e+L}{2L}_{0<e(n)<L}
+    r4&=\frac{-e+L}{2L}_{0<e(n)<L}\\
+    u&=Hr_1-Hr_4\\
+    u&=H\frac{\Delta e+L}{2L}-H\frac{-e+L}{2L}\\
+    u&=\frac{H\Delta e+HL+He-HL}{2L}\\
+    u&=\frac{H}{2L}\Delta e+\frac{H}{2L}e
 \end{split}
 \end{equation}
 
@@ -277,7 +281,11 @@ IC5
     r1&=\min{\left(1_{e(n)>L},\frac{\Delta e+L}{2L}_{-L<\Delta e(n)<0}\right)}\\
     r1&=\frac{\Delta e+L}{2L}_{-L<\Delta e(n)<0}\\
     r4&=\min{\left(0_{e(n)>L},\frac{-\Delta e+L}{2L}_{-L<\Delta e(n)<0}\right)}\\
-    r4&=0
+    r4&=0\\
+    u&=Hr_1-Hr_4\\
+    u&=H\frac{\Delta e+L}{2L}\\
+    u&=H\frac{\Delta e}{2L}+H\frac{L}{2L}\\
+    u&=\frac{H}{2L}\Delta e+\frac{H}{2}
 \end{split}
 \end{equation}
 
@@ -287,7 +295,8 @@ IC6
     r1&=\min{\left(1_{e(n)>L},1_{e(n)>L}\right)}\\
     r1&=1\\
     r4&=\min{\left(0_{e(n)>L},0_{e(n)>L}\right)}\\
-    r4&=0
+    r4&=0\\
+    u&=H
 \end{split}
 \end{equation}
 
@@ -297,7 +306,9 @@ IC7
     r1&=\min{\left(\frac{e+L}{2L}_{-L\leq e(n)\leq L},1_{e(n)>L}\right)}\\
     r1&=\frac{e+L}{2L}_{-L\leq e(n)\leq L}\\
     r4&=\min{\left(\frac{-e+L}{2L}_{-L\leq e(n)\leq L},0_{e(n)>L}\right)}\\
-    r4&=0
+    r4&=0\\
+    u&=H\frac{e+L}{2L}\\
+    u&=\frac{H}{2L}e+\frac{H}{2}
 \end{split}
 \end{equation}
 
@@ -307,7 +318,8 @@ IC8
     r1&=\min{\left(0_{e<-L},1_{e(n)>L}\right)}\\
     r1&=0\\
     r4&=\min{\left(1_{e<-L},0_{e(n)>L}\right)}\\
-    r4&=0
+    r4&=0\\
+    u&=0
 \end{split}
 \end{equation}
 
@@ -317,7 +329,10 @@ IC9
     r1&=\min{\left(0_{e<-L},\frac{\Delta e+L}{2L}_{-L<\Delta e(n)<0}\right)}\\
     r1&=0\\
     r4&=\min{\left(1_{e<-L},\frac{-\Delta e+L}{2L}_{-L<\Delta e(n)<0}\right)}\\
-    r4&=\frac{-\Delta e+L}{2L}_{-L<\Delta e(n)<0}
+    r4&=\frac{-\Delta e+L}{2L}_{-L<\Delta e(n)<0}\\
+    u&=Hr_1-Hr_4\\
+    u&=\frac{H\Delta e-HL}{2L}\\
+    u&=\frac{H}{2L}\Delta e-\frac{H}{2}
 \end{split}
 \end{equation}
 
@@ -327,7 +342,9 @@ IC10
     r1&=\min{\left(0_{e<-L},0_{\Delta e(n)<-L}\right)}\\
     r1&=0\\
     r4&=\min{\left(1_{e<-L},1_{\Delta e(n)<-L}\right)}\\
-    r4&=1
+    r4&=1\\
+    u&=Hr_1-Hr_4\\
+    u&=-H
 \end{split}
 \end{equation}
 
@@ -337,7 +354,8 @@ IC11
     r1&=\min{\left(\frac{e+L}{2L}_{-L\leq e(n)\leq L},0_{\Delta e(n)<-L}\right)}\\
     r1&=0\\
     r4&=\min{\left(\frac{-e+L}{2L}_{-L\leq e(n)\leq L},1_{\Delta e(n)<-L}\right)}\\
-    r4&=\frac{-e+L}{2L}_{-L\leq e(n)\leq L}
+    r4&=\frac{-e+L}{2L}_{-L\leq e(n)\leq L}\\
+    u&=\frac{H}{2L}e-\frac{H}{2}
 \end{split}
 \end{equation}
 
@@ -347,7 +365,8 @@ IC12
     r1&=\min{\left(1_{e(n)>L},0_{\Delta e(n)<-L}\right)}\\
     r1&=0\\
     r4&=\min{\left(0_{e(n)>L},1_{\Delta e(n)<-L}\right)}\\
-    r4&=0
+    r4&=0\\
+    u&=0
 \end{split}
 \end{equation}
 
