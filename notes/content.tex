@@ -370,19 +370,251 @@ IC12
 \end{split}
 \end{equation}
 
+\section{Gain}
+If centroid defuzzification is used for IC1 
+\begin{equation}
+\begin{split}
+    r1&=\min{\left(\frac{e+L}{2L}_{0<e(n)<L},\frac{\Delta e+L}{2L}_{-L\leq\Delta e(n)\leq L}\right)}\\
+    r1&=\frac{\Delta e+L}{2L}_{-L\leq\Delta e(n)\leq L}\\
+    r2&=\min{\left(\frac{e+L}{2L}_{0<e(n)<L},\frac{-\Delta e+L}{2L}_{-L\leq\Delta e(n)\leq L}\right)}\\
+    r2&=\frac{-\Delta e+L}{2L}\\
+    r3&=\min{\left(\frac{-e+L}{2L}_{0<e(n)<L},\frac{\Delta e+L}{2L}_{-L\leq\Delta e(n)\leq L}\right)}\\
+    r3&=\frac{-e+L}{2L}\\
+    r4&=\min{\left(\frac{-e+L}{2L}_{0<e(n)<L},\frac{-\Delta e+L}{2L}_{-L\leq\Delta e(n)\leq L}\right)}\\
+    r4&=\frac{-e+L}{2L}_{0<e(n)<L}\\
+    u&=\frac{Hr1-Hr4}{r1+r2+r3+r4}\\
+    u&=\frac{H\frac{\Delta e+L}{2L}-H\frac{-e+L}{2L}}{\frac{\Delta e+L}{2L}+\frac{-\Delta e+L}{2L}+\frac{-e+L}{2L}+\frac{-e+L}{2L}}\\
+    u&=\frac{H(\Delta e+L)-H(-e+L)}{(\Delta e+L)+(-\Delta e+L)+(-e+L)+(-e+L)}\\
+    u&=\frac{H\Delta e+He}{4L-2e}\\
+    u&=\frac{H}{4L-2e}\Delta e+\frac{H}{4L-2e}e
+\end{split}
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\section{Notes}
+\begin{equation}
+    \mu_P(e)\begin{cases}
+        0,& e<-L\\
+        \frac{e+L}{2L},& -L\leq e\leq L\\
+        1,& e>L\\
+    \end{cases}\quad
+    \mu_N(e)\begin{cases}
+        1,& e<-L\\
+        \frac{-e+L}{2L},& -L\leq e\leq L\\
+        0,& e>L\\
+    \end{cases}
+\end{equation}
+and 
+\begin{equation}
+    \mu_P(\Delta e)\begin{cases}
+        0,& \Delta e<-L\\
+        \frac{\Delta e+L}{2L},& -L\leq \Delta e\leq L\\
+        1,& \Delta e>L\\
+    \end{cases}\quad
+    \mu_N(\Delta e)\begin{cases}
+        1,& \Delta e<-L\\
+        \frac{-\Delta e+L}{2L},& -L\leq \Delta e\leq L\\
+        0,& \Delta e>L\\
+    \end{cases}
+\end{equation}
+and depicted in Figure~\ref{fig:fig1}. The membership functions are chosen such that, 
+\begin{equation}
+    \mu_N(e)+\mu_P(e)=1\quad \mu_N(\Delta e)+\mu_P(\Delta e)=1
+\end{equation}
+The control input membership is 
+\begin{equation}
+    \mu_P(\Delta u)\begin{cases}
+        1,& \Delta u=H\\
+        0,& \Delta u\neq 0
+    \end{cases}\quad
+    \mu_Z(\Delta u)\begin{cases}
+        1,& \Delta u=0\\
+        0,& \Delta u\neq 0
+    \end{cases}\quad
+    \mu_N(\Delta u)\begin{cases}
+        1,& \Delta u=-H\\
+        0,& \Delta u\neq 0
+    \end{cases}
+\end{equation}
+
+The rule set is defined as follows:
+\begin{quote}
+IF $e(n)$ is N AND $\Delta e(n)$ is N THEN output is Negative\\
+IF $e(n)$ is N AND $\Delta e(n)$ is P THEN output is Zero\\
+IF $e(n)$ is P AND $\Delta e(n)$ is N THEN output is Zero\\
+IF $e(n)$ is P AND $\Delta e(n)$ is P THEN output is Positive
+\end{quote}
+Minimum inference is used.
+\subsection{IF $e(n)$ is N AND $\Delta e(n)$ is N THEN output is Negative}
+\begin{equation}
+\mu_{NN}(e,\Delta e)\begin{cases}
+    \min{\left(1,1\right)},& e<-L ,\, \Delta e<-L\\
+    \min{\left(1,\frac{-\Delta e+L}{2L}\right)},& e<-L ,\, -L\leq \Delta e\leq L\\
+    \min{\left(1,0\right)},& e<-L ,\, \Delta e>L\\
+    \min{\left(\frac{-e+L}{2L},1\right)},& -L\leq e\leq L ,\, \Delta e<-L\\
+    \min{\left(\frac{-e+L}{2L},\frac{-\Delta e+L}{2L}\right)},& -L\leq e\leq L ,\, -L\leq \Delta e\leq L\\
+    \min{\left(\frac{-e+L}{2L},0\right)},& -L\leq e\leq L ,\, \\
+    \min{\left(0,1\right)},& e>L ,\,\Delta e<-L \\
+    \min{\left(0,\frac{-\Delta e+L}{2L}\right)},& e>L ,\, -L\leq \Delta e\leq L\\
+    \min{\left(0,0\right)},& e>L ,\, \Delta e>L\\
+\end{cases}
+\end{equation}
+hence,
+\begin{equation}
+\mu_{NN}(e,\Delta e)\begin{cases}
+    1,& e<-L ,\, \Delta e<-L\\
+    \frac{-\Delta e+L}{2L},& e<-L ,\, -L\leq \Delta e\leq L\\
+    0,& e<-L ,\, \Delta e>L\\
+    \frac{-e+L}{2L},& -L\leq e\leq L ,\, \Delta e<-L\\
+    \min{\left(\frac{-e+L}{2L},\frac{-\Delta e+L}{2L}\right)},& -L\leq e\leq L ,\, -L\leq \Delta e\leq L\\
+    0,& -L\leq e\leq L ,\, \\
+    0,& e>L ,\,\Delta e<-L \\
+    0,& e>L ,\, -L\leq \Delta e\leq L\\
+    0,& e>L ,\, \Delta e>L\\
+\end{cases}
+\end{equation}
+
+\begin{equation}
+\mu_{NP}(e,\Delta e)\begin{cases}
+    0,& e<-L,\,\Delta e<-L\\
+    \frac{\Delta e+L}{2L},& e<-L,\,-L\leq \Delta e\leq L\\
+    1,& e<-L,\,\Delta e>L\\
+    0,& -L\leq e\leq L,\,\Delta e<-L\\
+    \min{\left(\frac{-e+L}{2L},\frac{\Delta e+L}{2L}\right)},& -L\leq e\leq L,\,-L\leq \Delta e\leq L\\
+    \frac{-e+L}{2L},& -L\leq e\leq L,\,\Delta e>L\\
+    0,& e>L,\,\Delta e<-L\\
+    0,& e>L,\,-L\leq \Delta e\leq L\\
+    0,& e>L,\,\Delta e>L\\
+\end{cases}
+\end{equation}
+
+\begin{equation}
+\mu_{PN}(e,\Delta e)\begin{cases}
+    0,& e<-L,\,\Delta e<-L\\
+    0,& e<-L,\,-L\leq \Delta e\leq L\\
+    0,& e<-L,\,\Delta e>L\\
+    \frac{e+L}{2L},& -L\leq e\leq L,\,\Delta e<-L\\
+    \min{\left(\frac{e+L}{2L},\frac{-\Delta e+L}{2L}\right)},& -L\leq e\leq L,\,-L\leq \Delta e\leq L\\
+    0,& -L\leq e\leq L,\,\Delta e>L\\
+    1,& e>L,\,\Delta e<-L\\
+    \frac{-\Delta e+L}{2L},& e>L,\,-L\leq \Delta e\leq L\\
+    0,& e>L,\,\Delta e>L\\
+\end{cases}
+\end{equation}
+
+\begin{equation}
+\mu_{PP}(e)\begin{cases}
+    0,& e<-L,\,\Delta e<-L\\
+    0,& e<-L,\,-L\leq \Delta e\leq L\\
+    0,& e<-L,\,\Delta e>L\\
+    0,& -L\leq e\leq L,\,\Delta e<-L\\
+    \min{\left(\frac{e+L}{2L},\frac{\Delta e+L}{2L}\right)},& -L\leq e\leq L,\,-L\leq \Delta e\leq L\\
+    \frac{e+L}{2L},& -L\leq e\leq L,\,\Delta e>L\\
+    0,& e>L,\,\Delta e<-L\\
+    \frac{\Delta e+L}{2L},& e>L,\,-L\leq \Delta e\leq L\\
+    1,& e>L,\,\Delta e>L\\
+\end{cases}
+\end{equation}
+
+The aggregated output is given as 
+\begin{equation}
+    \Delta u =\frac{\mu_{PP}H-\mu_{NN}H}{\mu_{NN}+\mu_{NP}+\mu_{PN}+\mu_{PP}}
+\end{equation}
+Hence,
+\begin{equation}
+\Delta u\begin{cases}
+    -H,& e<-L,\,\Delta e<-L\\
+    \frac{H}{2L}\Delta e-\frac{H}{2},& e<-L,\,-L\leq \Delta e\leq L\\
+    0,& e<-L,\,\Delta e>L\\
+    \frac{H}{2L}e-\frac{H}{2},& -L\leq e\leq L,\,\Delta e<-L\\
+    ,& -L\leq e\leq L,\,-L\leq \Delta e\leq L\\
+    \frac{H}{2L}e+\frac{H}{2},& -L\leq e\leq L,\,\Delta e>L\\
+    0,& e>L,\,\Delta e<-L\\
+    \frac{H}{2L}\Delta e+\frac{H}{2},& e>L,\,-L\leq \Delta e\leq L\\
+    H,& e>L,\,\Delta e>L\\
+\end{cases}
+\end{equation}
+The case $-L\leq e\leq L,\,-L\leq \Delta e\leq L$ is divided into,
+\begin{equation}
+\begin{split}
+    -L\leq e\leq L,\,-L\leq \Delta e\leq 0 \\
+    -L\leq e\leq L,\,0\leq \Delta e\leq L \\
+    -L\leq e\leq 0,\,-L\leq \Delta e\leq L \\
+    0\leq e\leq L,\,-L\leq \Delta e\leq L 
+\end{split}
+\end{equation}
+and hence,
 
 
-% \begin{table}[h!]
-% \centering
-% \caption{IC Region Definitions in $(e(n), \Delta e(n))$ Space}
-% \begin{tabular}{ccccc}
-% \toprule
-% Region & r1:$PP$ & r2:$PN$ & r3:$NP$ &r4:$NN$\\
-% \midrule
-% IC1 & $\frac{e+L}{2L}\frac{\Delta e+L}{2L}$ & $\frac{e+L}{2L}\frac{-\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{-\Delta e+L}{2L}$\\
-% IC2 & $\frac{e+L}{2L}\frac{\Delta e+L}{2L}$ & $\frac{e+L}{2L}\frac{-\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{-\Delta e+L}{2L}$\\
-% IC3 & $\frac{e+L}{2L}\frac{\Delta e+L}{2L}$ & $\frac{e+L}{2L}\frac{-\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{-\Delta e+L}{2L}$\\
-% IC4 & $\frac{e+L}{2L}\frac{\Delta e+L}{2L}$ & $\frac{e+L}{2L}\frac{-\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{\Delta e+L}{2L}$& $\frac{-e+L}{2L}\frac{-\Delta e+L}{2L}$\\
-% \bottomrule
-% \end{tabular}
-% \end{table}
+\begin{equation}
+\mu_{NP}(e,\Delta e)\begin{cases}
+    \frac{\Delta e+L}{2L} & -L\leq e\leq L,\,-L\leq \Delta e\leq 0 \\
+    \frac{-e+L}{2L} & -L\leq e\leq L,\,0\leq \Delta e\leq L \\
+    \frac{\Delta e+L}{2L} & -L\leq e\leq 0,\,-L\leq \Delta e\leq L \\
+    \frac{-e+L}{2L} & 0\leq e\leq L,\,-L\leq \Delta e\leq L 
+\end{cases}
+\end{equation}
+
+\begin{equation}
+\mu_{PN}(e,\Delta e)\begin{cases}
+    \frac{e+L}{2L} & -L\leq e\leq L,\,-L\leq \Delta e\leq 0 \\
+    \frac{-\Delta e+L}{2L} & -L\leq e\leq L,\,0\leq \Delta e\leq L \\
+    \frac{e+L}{2L} & -L\leq e\leq 0,\,-L\leq \Delta e\leq L \\
+    \frac{-\Delta e+L}{2L}& 0\leq e\leq L,\,-L\leq \Delta e\leq L 
+\end{cases}
+\end{equation}
+
+\begin{equation}
+\mu_{PP}(e,\Delta e)\begin{cases}
+    \frac{\Delta e+L}{2L} & -L\leq e\leq L,\,-L\leq \Delta e\leq 0 \\
+    \frac{e+L}{2L}& -L\leq e\leq L,\,0\leq \Delta e\leq L \\
+    \frac{e+L}{2L}& -L\leq e\leq 0,\,-L\leq \Delta e\leq L \\
+    \frac{\Delta e+L}{2L} & 0\leq e\leq L,\,-L\leq \Delta e\leq L 
+\end{cases}
+\end{equation}
+
+\begin{equation}
+\mu_{NN}(e,\Delta e)\begin{cases}
+    \frac{-e+L}{2L} & -L\leq e\leq L,\,-L\leq \Delta e\leq 0 \\
+    \frac{-\Delta e+L}{2L} & -L\leq e\leq L,\,0\leq \Delta e\leq L \\
+    \frac{-\Delta e+L}{2L}& -L\leq e\leq 0,\,-L\leq \Delta e\leq L \\
+    \frac{-e+L}{2L}& 0\leq e\leq L,\,-L\leq \Delta e\leq L 
+\end{cases}
+\end{equation}
+
+\begin{equation}
+    \Delta u=H\begin{cases}
+    \frac{\Delta e+e}{2\Delta e+4L} & -L\leq e\leq L,\,-L\leq \Delta e\leq 0 \\
+    \frac{e+\Delta e}{-2\Delta e+4L} & -L\leq e\leq L,\,0\leq \Delta e\leq L \\
+    \frac{e+\Delta e}{2e+4L}& -L\leq e\leq 0,\,-L\leq \Delta e\leq L \\
+    \frac{\Delta e+e}{-2e+4L} & 0\leq e\leq L,\,-L\leq \Delta e\leq L 
+\end{cases}
+\end{equation}
+and finally,
+\begin{equation}
+\Delta u\begin{cases}
+    -H,& e<-L,\,\Delta e<-L\\
+    \frac{H}{2L}\Delta e-\frac{H}{2},& e<-L,\,-L\leq \Delta e\leq L\\
+    0,& e<-L,\,\Delta e>L\\
+    \frac{H}{2L}e-\frac{H}{2},& -L\leq e\leq L,\,\Delta e<-L\\
+    H\frac{\Delta e+e}{2\Delta e+4L} & -L\leq e\leq L,\,-L\leq \Delta e\leq 0 \\
+    H\frac{e+\Delta e}{-2\Delta e+4L} & -L\leq e\leq L,\,0\leq \Delta e\leq L \\
+    H\frac{e+\Delta e}{2e+4L}& -L\leq e\leq 0,\,-L\leq \Delta e\leq L \\
+    H\frac{\Delta e+e}{-2e+4L} & 0\leq e\leq L,\,-L\leq \Delta e\leq L \\
+    \frac{H}{2L}e+\frac{H}{2},& -L\leq e\leq L,\,\Delta e>L\\
+    0,& e>L,\,\Delta e<-L\\
+    \frac{H}{2L}\Delta e+\frac{H}{2},& e>L,\,-L\leq \Delta e\leq L\\
+    H,& e>L,\,\Delta e>L\\
+\end{cases}
+\end{equation}
+Therefore,
+\begin{equation}
+\Delta u\begin{cases}
+    \frac{H}{2\Delta e+4L}\Delta e+\frac{H}{2\Delta e+4L}e & -L\leq e\leq L,\,-L\leq \Delta e\leq 0 \\
+    \frac{H}{-2\Delta e+4L}\Delta e+\frac{H}{-2\Delta e+4L}e & -L\leq e\leq L,\,0\leq \Delta e\leq L \\
+    \frac{H}{2e+4L}\Delta e+\frac{H}{2e+4L}e& -L\leq e\leq 0,\,-L\leq \Delta e\leq L \\
+    \frac{H}{-2e+4L}\Delta e+\frac{H}{-2e+4L}e& 0\leq e\leq L,\,-L\leq \Delta e\leq L \\
+\end{cases}
+\end{equation}
+
