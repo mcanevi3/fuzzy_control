@@ -25,11 +25,21 @@ plot(ax1,x1_set,rule2_x1(x1_set),'r','LineWidth',2,'DisplayName','Rule 2');
 plot(ax2,x2_set,rule1_x1(x2_set),'b','LineWidth',2,'DisplayName','Rule 1');
 plot(ax2,x2_set,rule2_x1(x2_set),'r','LineWidth',2,'DisplayName','Rule 2');
 
-f1=@(val)rule1_x1(val)*rule1_x2(val);
-f2=@(val)rule2_x1(val)*rule2_x2(val);
+f1=@(x1,x2)rule1_x1(x1)*rule1_x2(x2);
+f2=@(x1,x2)rule2_x1(x1)*rule2_x2(x2);
+
+ksi=@(x1,x2)[f1(x1,x2);f2(x1,x2)]/(f1(x1,x2)+f2(x1,x2));
 
 b1=1;
 b2=5;
 
-fx_theta=(b1*f1+b2*f2)/(f1+f2);
+Phi=[ksi(x1(1),x2(1))';ksi(x1(2),x2(2))';ksi(x1(3),x2(3))'];
+Y=[y(1);y(2);y(3)];
 
+theta=inv(Phi'*Phi)*Phi'*Y;
+% theta=[b1;b2]; for some fuzzy output singleton membership
+
+Yapprox=[
+theta'*Phi(1,:)';
+theta'*Phi(2,:)';
+theta'*Phi(3,:)']
